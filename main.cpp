@@ -23,8 +23,6 @@ class DLinkedList{  //definition of doubly linked list
         ~DLinkedList(); //distructor
 
         bool isEmpty(); //checks if list is empty
-        const Elem& getFront() const; //shows next elem
-        const Elem& getBack() const;  //shows prev elem
         void addFront(const Elem& e); // add to front of list
         void addBack(const Elem& e); // add to back of list
         void removeFront(); // remove from front
@@ -55,14 +53,6 @@ DLinkedList::~DLinkedList(){
 
 bool DLinkedList::isEmpty(){
     return header->next == trailer;
-};
-
-const Elem& DLinkedList::getFront() const{
-    return header->next->elem;
-};
-
-const Elem& DLinkedList::getBack() const{
-    return trailer->prev->elem;
 };
 
 void DLinkedList::add(DNode* v, const Elem& e){
@@ -165,21 +155,27 @@ int main(){
     DLinkedList DLL;
     //char exit;
     int key;
+
+    cout << endl;
+    cout << "*********************** PROGRAM STARTED ***********************" << endl;
+    
     while(key != 000){
         //cin >> exit;
         //cout << "Size of queue: " << sizeof(DLL) << " bytes" << endl;
 
         //int key;
-        cout << "choose a key" << endl;
-        cout << "1 - adding elements with delays" << endl;
-        cout << "2 - adding elements without delays" << endl;
-        cout << "000 - exit" << endl;
+        cout << "Choose a key:" << endl;
+        cout << endl;
+        cout << "'1' - adding elements with delays." << endl;
+        cout << "'2' - adding elements without delays." << endl;
+        cout << "'000' - EXIT." << endl;
         cin >> key;
 
         int size;
         int num_op;
         int number;
-        int random;
+        char key1;
+        //int random;
         srand(time(0));
 
         switch(key){
@@ -190,43 +186,61 @@ int main(){
 
                     cout << "Enter number of operations: " << endl;
                     cin >> num_op;
-                    
-                for (int i = 0; i < size; i++){
-                    int TIME = rand() % 2000 + 500;
-                    number = rand() % 100000 + 0;
-                    DLL.addBack(number);
-                    Sleep(TIME);
-                    DLL.printDLL();
-                };
+                
+                if(size < 1 || num_op < 0){
+                    cout << "ERROR: Querry cant have size of 0 or have negative number of operations." << endl;
+                }
+                
+                else{   
 
-
-                for (int j = 0; j < num_op; j++){
-
-                    int TIME = rand() % 2000 + 500;
-                    number = rand() % 100000 + 0;
-                    //random = rand() % 2;
-
-                    //if(random == 0){
+                    for (int i = 0; i < size; i++){
+                        int TIME = rand() % 2000 + 500;
+                        number = rand() % 100000 + 0;
                         DLL.addBack(number);
-                    //};
-                    //DLL.addBack(number);
-                    Sleep(TIME);
-                    DLL.printDLL();
-                    //if(!DLL.isEmpty()){
+                        Sleep(TIME);
+                        DLL.printDLL();
+                    };
+
+
+                    for (int j = 0; j < num_op; j++){
+
+                        int TIME = rand() % 2000 + 500;
+                        number = rand() % 100000 + 0;
+                        //random = rand() % 2;
+
+                        //if(random == 0){
+                        DLL.addBack(number);
+                        //};
+                        //DLL.addBack(number);
+                        //DLL.printDLL();
+                        //if(!DLL.isEmpty()){
                         DLL.removeFront();
                         DLL.printDLL();
-                    //}                
-                };
+                        Sleep(TIME);
+                        //}                
+                    };
 
-                for (int j = 0; j < size; j++){
+                    cout << endl;
+                    cout << "Size of queue: " << DLL.sizeofDLL() << " bytes" << endl; 
+                    cout << "Do you want to clean queue? (y/n)" << endl;
                     
-                    DLL.removeFront();
-                    DLL.printDLL();
+                    cin >> key1;
+                    cout << endl;
+
+                        if (key1 == 'y'){
+                            for (int j = 0; j < size; j++){
+                                DLL.removeFront();
+                                DLL.printDLL();
+                            };
+                            DLL.~DLinkedList(); 
+                            cout << "Queue is empty." << endl;
+                            cout << endl;
+                        }
+                        else{
+                            cout << endl;
+                            DLL.~DLinkedList();
+                        };
                 };
-
-                DLL.~DLinkedList();
-
-                cout << endl;
             break;
 
             case 2:
@@ -238,7 +252,7 @@ int main(){
                     cin >> num_op;
                 
                 if(size < 1 || num_op < 0){
-                    cout << "Querry cant have size of 0 or have negative number of operations." << endl;
+                    cout << "ERROR: Querry cant have size of 0 or have negative number of operations." << endl;
                 }
 
                 else{
@@ -267,7 +281,6 @@ int main(){
                     cout << "Size of queue: " << DLL.sizeofDLL() << " bytes" << endl; 
                     cout << "Do you want to clean queue? (y/n)" << endl;
                     
-                    char key1;
                     cin >> key1;
                     cout << endl;
 
@@ -288,12 +301,17 @@ int main(){
             break;
 
             case 000:
-                DLL.printDLL();
+                //DLL.printDLL();
                 DLL.~DLinkedList();
                 cout << endl;
+            break;
+
+            default:
+                cout << "ERROR: NO SUCH OPTION, TRY AGAIN" << endl;
             break;
         };
     };
 
+    cout << "*********************** PROGRAM STOPPED ***********************" << endl;
     return 0;
 };

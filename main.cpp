@@ -304,6 +304,7 @@ int main(){
 
             default:
                 cout << "ERROR: NO SUCH OPTION, TRY AGAIN" << endl;
+                cout << endl;
             break;
         };
     };

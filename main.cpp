@@ -200,18 +200,18 @@ int main(){
 
                 int TIME = rand() % 2000 + 500;
                 number = rand() % 100000 + 0;
-                random = rand() % 2;
+                //random = rand() % 2;
 
-                if(random == 0){
+                //if(random == 0){
                     DLL.addBack(number);
-                };
+                //};
                 //DLL.addBack(number);
                 Sleep(TIME);
                 DLL.printDLL();
-                if(!DLL.isEmpty()){
+                //if(!DLL.isEmpty()){
                     DLL.removeFront();
                     DLL.printDLL();
-                }                
+                //}                
             };
 
             for (int j = 0; j < size; j++){
@@ -242,11 +242,11 @@ int main(){
 
             for (int j = 0; j < num_op; j++){
                 number = rand() % 100000 + 0;
-                random = rand() % 1 + 0;
+                //random = rand() % 1 + 0;
 
-                if(random == 1){
+                //if(random == 1){
                 DLL.addBack(number);
-                };
+                //};
 
                 //DLL.printDLL();
                 DLL.removeFront();

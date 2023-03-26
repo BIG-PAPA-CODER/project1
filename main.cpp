@@ -3,6 +3,7 @@
 #include <string>               //********funkcja dodawania raz w jakis czas, funkcja ile elem na liscie,
 using namespace std;            //********GUI, testy automatyczne, testy wydajnosciowe. Value of whole struct in bytes.
 #include <windows.h>
+#include <time.h>
 
 typedef int Elem;
 //template <typename Elem>               //definition of one node 
@@ -174,6 +175,8 @@ int main(){
     int size;
     int num_op;
     int number;
+    int random;
+    srand(time(0));
 
     switch(key){
         case 1:
@@ -197,11 +200,18 @@ int main(){
 
                 int TIME = rand() % 2000 + 500;
                 number = rand() % 100000 + 0;
-                DLL.addBack(number);
+                random = rand() % 2;
+
+                if(random == 0){
+                    DLL.addBack(number);
+                };
+                //DLL.addBack(number);
                 Sleep(TIME);
                 DLL.printDLL();
-                DLL.removeFront();
-                DLL.printDLL();
+                if(!DLL.isEmpty()){
+                    DLL.removeFront();
+                    DLL.printDLL();
+                }                
             };
 
             for (int j = 0; j < size; j++){
@@ -232,8 +242,13 @@ int main(){
 
             for (int j = 0; j < num_op; j++){
                 number = rand() % 100000 + 0;
+                random = rand() % 1 + 0;
+
+                if(random == 1){
                 DLL.addBack(number);
-                DLL.printDLL();
+                };
+
+                //DLL.printDLL();
                 DLL.removeFront();
                 DLL.printDLL();
             };
@@ -253,6 +268,7 @@ int main(){
                     };
                     DLL.~DLinkedList(); 
                     cout << "Queue is empty." << endl;
+                    cout << endl;
                 }
                 else{
                     cout << endl;

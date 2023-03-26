@@ -153,17 +153,13 @@ void removeauto(){
 int main(){
     
     DLinkedList DLL;
-    //char exit;
     int key;
 
     cout << endl;
     cout << "*********************** PROGRAM STARTED ***********************" << endl;
     
     while(key != 000){
-        //cin >> exit;
-        //cout << "Size of queue: " << sizeof(DLL) << " bytes" << endl;
-
-        //int key;
+        
         cout << "Choose a key:" << endl;
         cout << endl;
         cout << "'1' - adding elements with delays." << endl;

@@ -163,125 +163,137 @@ void removeauto(){
 int main(){
     
     DLinkedList DLL;
-    
-    //cout << "Size of queue: " << sizeof(DLL) << " bytes" << endl;
-
+    //char exit;
     int key;
-    cout << "choose a key" << endl;
-    cout << "1 - adding elements with delays" << endl;
-    cout << "2 - adding elements without delays" << endl;
-    cin >> key;
+    while(key != 000){
+        //cin >> exit;
+        //cout << "Size of queue: " << sizeof(DLL) << " bytes" << endl;
 
-    int size;
-    int num_op;
-    int number;
-    int random;
-    srand(time(0));
+        //int key;
+        cout << "choose a key" << endl;
+        cout << "1 - adding elements with delays" << endl;
+        cout << "2 - adding elements without delays" << endl;
+        cout << "000 - exit" << endl;
+        cin >> key;
 
-    switch(key){
-        case 1:
+        int size;
+        int num_op;
+        int number;
+        int random;
+        srand(time(0));
 
-                cout << "Enter size of queue: " << endl;
-                cin >> size;
+        switch(key){
+            case 1:
 
-                cout << "Enter number of operations: " << endl;
-                cin >> num_op;
-                
-            for (int i = 0; i < size; i++){
-                int TIME = rand() % 2000 + 500;
-                number = rand() % 100000 + 0;
-                DLL.addBack(number);
-                Sleep(TIME);
-                DLL.printDLL();
-            };
+                    cout << "Enter size of queue: " << endl;
+                    cin >> size;
 
-
-            for (int j = 0; j < num_op; j++){
-
-                int TIME = rand() % 2000 + 500;
-                number = rand() % 100000 + 0;
-                //random = rand() % 2;
-
-                //if(random == 0){
+                    cout << "Enter number of operations: " << endl;
+                    cin >> num_op;
+                    
+                for (int i = 0; i < size; i++){
+                    int TIME = rand() % 2000 + 500;
+                    number = rand() % 100000 + 0;
                     DLL.addBack(number);
-                //};
-                //DLL.addBack(number);
-                Sleep(TIME);
-                DLL.printDLL();
-                //if(!DLL.isEmpty()){
+                    Sleep(TIME);
+                    DLL.printDLL();
+                };
+
+
+                for (int j = 0; j < num_op; j++){
+
+                    int TIME = rand() % 2000 + 500;
+                    number = rand() % 100000 + 0;
+                    //random = rand() % 2;
+
+                    //if(random == 0){
+                        DLL.addBack(number);
+                    //};
+                    //DLL.addBack(number);
+                    Sleep(TIME);
+                    DLL.printDLL();
+                    //if(!DLL.isEmpty()){
+                        DLL.removeFront();
+                        DLL.printDLL();
+                    //}                
+                };
+
+                for (int j = 0; j < size; j++){
+                    
                     DLL.removeFront();
                     DLL.printDLL();
-                //}                
-            };
+                };
 
-            for (int j = 0; j < size; j++){
+                DLL.~DLinkedList();
+
+                cout << endl;
+            break;
+
+            case 2:
+
+                    cout << "Enter size of queue: " << endl;
+                    cin >> size;
+
+                    cout << "Enter number of operations: " << endl;
+                    cin >> num_op;
                 
-                DLL.removeFront();
-                DLL.printDLL();
-            };
+                if(size < 1 || num_op < 0){
+                    cout << "Querry cant have size of 0 or have negative number of operations." << endl;
+                }
 
-            DLL.~DLinkedList();
+                else{
 
-            cout << endl;
-        break;
-
-        case 2:
-
-                cout << "Enter size of queue: " << endl;
-                cin >> size;
-
-                cout << "Enter number of operations: " << endl;
-                cin >> num_op;
-                
-            for (int i = 0; i < size; i++){
-                number = rand() % 100000 + 0;
-                DLL.addBack(number);
-                DLL.printDLL();
-            };
+                    for (int i = 0; i < size; i++){
+                        number = rand() % 100000 + 0;
+                        DLL.addBack(number);
+                        DLL.printDLL();
+                    };
 
 
-            for (int j = 0; j < num_op; j++){
-                number = rand() % 100000 + 0;
-                //random = rand() % 1 + 0;
+                    for (int j = 0; j < num_op; j++){
+                        number = rand() % 100000 + 0;
+                        //random = rand() % 1 + 0;
 
-                //if(random == 1){
-                DLL.addBack(number);
-                //};
+                        //if(random == 1){
+                        DLL.addBack(number);
+                        //};
 
-                //DLL.printDLL();
-                DLL.removeFront();
-                DLL.printDLL();
-            };
-
-            cout << endl;
-            cout << "Size of queue: " << DLL.sizeofDLL() << " bytes" << endl; 
-            cout << "Do you want to clean queue? (y/n)" << endl;
-            
-            char key1;
-            cin >> key1;
-            cout << endl;
-
-                if (key1 == 'y'){
-                    for (int j = 0; j < size; j++){
+                        //DLL.printDLL();
                         DLL.removeFront();
                         DLL.printDLL();
                     };
-                    DLL.~DLinkedList(); 
-                    cout << "Queue is empty." << endl;
-                    cout << endl;
-                }
-                else{
-                    cout << endl;
-                    DLL.~DLinkedList();
-                };
-        break;
 
-        case 000:
-            DLL.printDLL();
-            DLL.~DLinkedList();
-        cout << endl;
-        break;
+                    cout << endl;
+                    cout << "Size of queue: " << DLL.sizeofDLL() << " bytes" << endl; 
+                    cout << "Do you want to clean queue? (y/n)" << endl;
+                    
+                    char key1;
+                    cin >> key1;
+                    cout << endl;
+
+                        if (key1 == 'y'){
+                            for (int j = 0; j < size; j++){
+                                DLL.removeFront();
+                                DLL.printDLL();
+                            };
+                            DLL.~DLinkedList(); 
+                            cout << "Queue is empty." << endl;
+                            cout << endl;
+                        }
+                        else{
+                            cout << endl;
+                            DLL.~DLinkedList();
+                        };
+                };
+            break;
+
+            case 000:
+                DLL.printDLL();
+                DLL.~DLinkedList();
+                cout << endl;
+            break;
+        };
     };
-    
+
     return 0;
 };

@@ -1,10 +1,10 @@
 #include <cstdlib>
 #include <iostream>             //********do zalatwenia: elem ktory najdluzej czeka, 
 #include <string>               //********funkcja dodawania raz w jakis czas, funkcja ile elem na liscie,
-using namespace std;            //********GUI, testy automatyczne, testy wydajnosciowe. Value of whole struct in bytes.
-#include <windows.h>
+#include <windows.h>            //********GUI, testy automatyczne, testy wydajnosciowe. Value of whole struct in bytes.
 #include <time.h>
 
+using namespace std;
 typedef int Elem;
 //template <typename Elem>               //definition of one node 
 class DNode{
@@ -81,8 +81,9 @@ void DLinkedList::addBack(const Elem& e){
 };
 
 void DLinkedList::removeFront(){
-    remove(header->next);
     header = header->next;
+    remove(header->prev);
+    
 };
 
 void DLinkedList::removeBack(){
@@ -135,10 +136,8 @@ int DLinkedList::sizeofDLL(){
             number += 1;
             Sleep(TIME);
             DLL.printDLL();
-
         };   
 };
-
 void removeauto(){
     for (int j = 0; j < 5; j++){
             int TIME = rand() % 2000 + 500;
@@ -158,20 +157,19 @@ int main(){
     cout << endl;
     cout << "*********************** PROGRAM STARTED ***********************" << endl;
     
-    while(key != 000){
+    while(key != 0){
         
         cout << "Choose a key:" << endl;
         cout << endl;
         cout << "'1' - adding elements with delays." << endl;
         cout << "'2' - adding elements without delays." << endl;
-        cout << "'000' - EXIT." << endl;
+        cout << "'0' - EXIT." << endl;
         cin >> key;
 
         int size;
         int num_op;
         int number;
         char key1;
-        //int random;
         srand(time(0));
 
         switch(key){
@@ -198,22 +196,14 @@ int main(){
                     };
 
 
-                    for (int j = 0; j < num_op; j++){
+                    for (int i = 0; i < num_op; i++){
 
                         int TIME = rand() % 2000 + 500;
                         number = rand() % 100000 + 0;
-                        //random = rand() % 2;
-
-                        //if(random == 0){
                         DLL.addBack(number);
-                        //};
-                        //DLL.addBack(number);
-                        //DLL.printDLL();
-                        //if(!DLL.isEmpty()){
+                        Sleep(TIME);
                         DLL.removeFront();
                         DLL.printDLL();
-                        Sleep(TIME);
-                        //}                
                     };
 
                     cout << endl;
@@ -262,13 +252,7 @@ int main(){
 
                     for (int j = 0; j < num_op; j++){
                         number = rand() % 100000 + 0;
-                        //random = rand() % 1 + 0;
-
-                        //if(random == 1){
                         DLL.addBack(number);
-                        //};
-
-                        //DLL.printDLL();
                         DLL.removeFront();
                         DLL.printDLL();
                     };
@@ -296,8 +280,7 @@ int main(){
                 };
             break;
 
-            case 000:
-                //DLL.printDLL();
+            case 0:
                 DLL.~DLinkedList();
                 cout << endl;
             break;
@@ -310,5 +293,6 @@ int main(){
     };
 
     cout << "*********************** PROGRAM STOPPED ***********************" << endl;
+    //DLL.~DLinkedList();
     return 0;
 };

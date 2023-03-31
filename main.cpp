@@ -1,13 +1,21 @@
 #include <cstdlib>
-#include <iostream>             //********do zalatwenia: elem ktory najdluzej czeka, 
-#include <string>               //********funkcja dodawania raz w jakis czas, funkcja ile elem na liscie,
-#include <windows.h>            //********GUI, testy automatyczne, testy wydajnosciowe. Value of whole struct in bytes.
+#include <iostream>             
+#include <string>               
+#include <windows.h>            
 #include <time.h>
+#include <ctime>
 
 using namespace std;
 typedef int Elem;
-//template <typename Elem>               //definition of one node 
+                               //definition of one node 
 class DNode{
+    public:
+    DNode(){
+
+    }; 
+    ~DNode(){
+
+    };
     private:
     Elem elem;
     DNode* prev;
@@ -39,8 +47,8 @@ class DLinkedList{  //definition of doubly linked list
 };
 
 DLinkedList::DLinkedList(){
-    header = new DNode;
-    trailer = new DNode;
+    header = new DNode();
+    trailer = new DNode();
     header->next = trailer;
     trailer->prev = header;
 };
@@ -56,7 +64,7 @@ bool DLinkedList::isEmpty(){
 };
 
 void DLinkedList::add(DNode* v, const Elem& e){
-    DNode* u = new DNode;
+    DNode* u = new DNode();
     u->elem = e;
     u->next = v;
     u->prev = v->prev;
@@ -98,13 +106,11 @@ void DLinkedList::printDLL(){
         header = header->next;              //here is the problem, header is moved
         ++res;
     };
-    
     int j = 0;                              //and here is the solution, returning head to its place
     while(j < res){
         header = header->prev;
         ++j;
     };
-
     cout << endl;
 };
 
@@ -117,13 +123,11 @@ int DLinkedList::sizeofDLL(){
         header = header->next;              
         ++res;
     };
-
     int j = 0;                              //returning head to its place
     while(j < res){
         header = header->prev;
         ++j;
     };
-
     return sizeDLL;
 };
 
@@ -151,14 +155,15 @@ void removeauto(){
 
 int main(){
     
-    DLinkedList DLL;
     int key;
 
     cout << endl;
     cout << "*********************** PROGRAM STARTED ***********************" << endl;
     
     while(key != 0){
-        
+
+        DLinkedList* DLL = new DLinkedList();
+
         cout << "Choose a key:" << endl;
         cout << endl;
         cout << "'1' - adding elements with delays." << endl;
@@ -190,9 +195,9 @@ int main(){
                     for (int i = 0; i < size; i++){
                         int TIME = rand() % 2000 + 500;
                         number = rand() % 100000 + 0;
-                        DLL.addBack(number);
+                        DLL->addBack(number);
                         Sleep(TIME);
-                        DLL.printDLL();
+                        DLL->printDLL();
                     };
 
 
@@ -200,14 +205,14 @@ int main(){
 
                         int TIME = rand() % 2000 + 500;
                         number = rand() % 100000 + 0;
-                        DLL.addBack(number);
+                        DLL->addBack(number);
                         Sleep(TIME);
-                        DLL.removeFront();
-                        DLL.printDLL();
+                        DLL->removeFront();
+                        DLL->printDLL();
                     };
 
                     cout << endl;
-                    cout << "Size of queue: " << DLL.sizeofDLL() << " bytes" << endl; 
+                    cout << "Size of queue: " << DLL->sizeofDLL() << " bytes" << endl; 
                     cout << "Do you want to clean queue? (y/n)" << endl;
                     
                     cin >> key1;
@@ -215,16 +220,16 @@ int main(){
 
                         if (key1 == 'y'){
                             for (int j = 0; j < size; j++){
-                                DLL.removeFront();
-                                DLL.printDLL();
+                                DLL->removeFront();
+                                DLL->printDLL();
                             };
-                            DLL.~DLinkedList(); 
+                            delete DLL; 
                             cout << "Queue is empty." << endl;
                             cout << endl;
                         }
                         else{
                             cout << endl;
-                            DLL.~DLinkedList();
+                            delete DLL;
                         };
                 };
             break;
@@ -243,45 +248,55 @@ int main(){
 
                 else{
 
+                    int start = clock();
+
                     for (int i = 0; i < size; i++){
                         number = rand() % 100000 + 0;
-                        DLL.addBack(number);
-                        DLL.printDLL();
+                        DLL->addBack(number);
+                        DLL->printDLL();
                     };
 
 
                     for (int j = 0; j < num_op; j++){
                         number = rand() % 100000 + 0;
-                        DLL.addBack(number);
-                        DLL.removeFront();
-                        DLL.printDLL();
+                        DLL->addBack(number);
+                        DLL->removeFront();
+                        DLL->printDLL();
                     };
-
+                    int end = clock();
+                    int t = end - start;
                     cout << endl;
-                    cout << "Size of queue: " << DLL.sizeofDLL() << " bytes" << endl; 
+                    cout << "Size of queue: " << DLL->sizeofDLL() << " bytes" << endl;
+                    cout << "Time: " << t << "ms" << endl;
                     cout << "Do you want to clean queue? (y/n)" << endl;
+                    
                     
                     cin >> key1;
                     cout << endl;
 
                         if (key1 == 'y'){
-                            for (int j = 0; j < size; j++){
-                                DLL.removeFront();
-                                DLL.printDLL();
+                            int rozm;
+                            cout << "How much to remowe?" << endl;
+                            cin >> rozm;
+                            for (int j = 0; j < rozm; j++){
+                                DLL->removeFront();
+                                DLL->printDLL();
                             };
-                            DLL.~DLinkedList(); 
-                            cout << "Queue is empty." << endl;
+                            //delete DLL;
+                            cout << "Size of queue: " << DLL->sizeofDLL() << " elements" << endl; 
+                            //cout << "Queue is empty." << endl;
                             cout << endl;
                         }
                         else{
                             cout << endl;
-                            DLL.~DLinkedList();
+                            delete DLL;
                         };
                 };
             break;
 
             case 0:
-                DLL.~DLinkedList();
+                delete DLL;
+                //DLL.~DLinkedList();
                 cout << endl;
             break;
 
